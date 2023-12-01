@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>L.P.P Concesionario</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/c1/regDocF.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Activa el dark mode-->
+    <%- include('../../partials/head') %>
+</head>
+
+<body>
+    <%- include('../../partials/navigation') %>
+        <% if (typeof msg !=='undefined' ) { %>
+            <script>
+                alert('<%= msg %>');
+            </script>
+            <% } %>
+
+                <div class="container">
+                    <div id="espaciado"></div>
+                    <div class="margin">
+                        <form name="myForm" action="/c1/b4/regDocF" method="POST" id="survey-form" required>
+                            <p id="principal-description">Registra la documentación de fabricación del auto:</p>
+                            <p id="description">Fechas</p>
+
+                            <label for="orden-compra-label" id="orden-compra-label">Número de Orden de Compra</label>
+                            <input type="text" id="orden-compra" placeholder="Nro de Orden de Compra" name="codODC"
+                                required>
+                            <label for="fecha-emision-label" id="fecha-emision-label">Fecha de Emisión</label>
+                            <input type="date" id="fecha-emision" placeholder="Fecha de Emisión" name="fechaEmision"
+                                required>
+                            <label for="fecha-entrega-label" id="fecha-entrega-label">Fecha de Entrega</label>
+                            <input type="date" id="fecha-entrega" placeholder="Fecha de Entrega" name="fechaEntrega"
+                                required>
+
+                            <input type="submit" class="btn btn-danger" style="margin-top:1%"
+                                value="Registrar Documentación">
+                            <a class="btn btn-danger" href="../">Regresar</a>
+                        </form>
+                    </div>
+                </div>
+
+                <style>
+                    html {
+                        height: 100% !important;
+                    }
+
+                    body {
+                        display: flex !important;
+                        flex-direction: column !important;
+                        min-height: 100% !important;
+
+                    }
+
+                    #footer {
+                        background-color: rgba(33, 37, 41, 1) !important;
+                        padding: 40px auto !important;
+                        text-align: center;
+                        font-family: sans-serif !important;
+                        text-align: center !important;
+                        background-color: rgba(33, 37, 41, 1);
+                        color: white;
+                        margin-top: auto !important;
+                    }
+
+                    #survey-form {
+                        display: block !important;
+                        margin: 50px auto 70px !important;
+                        font-family: sans-serif !important;
+                        color: white !important;
+                        background: linear-gradient(rgb(0, 0, 0), rgb(243, 33, 33)) !important;
+                        opacity: 1 !important;
+                        border-radius: 20px;
+                        border: 0;
+                        height: 100% !important;
+
+                    }
+
+
+                    input[type="text"],
+                    input[type="email"],
+                    input[type="date"] {
+                        margin-top: -5px !important;
+                        display: block;
+                        width: 200px !important;
+                        margin: 0 auto 30px !important;
+                        border: 0;
+                        height: 25px;
+                        border-radius: 5px !important;
+                        text-align: center !important;
+                    }
+
+                    select[id="tipo-documento"] {
+                        width: 200px !important;
+                        margin-top: -5px !important;
+                        display: block;
+                        margin: 0 auto 30px !important;
+                        border: 0;
+                        height: 25px;
+                        border-radius: 5px !important;
+                        text-align: center !important;
+                    }
+
+
+                    .navbar {
+                        z-index: 100;
+                    }
+
+                    #principal-description {
+                        color: white !important;
+                        text-align: center !important;
+                        margin: 20px;
+                        font-family: sans-serif !important;
+                    }
+
+                    label,
+                    #description {
+                        color: white !important;
+                        font-family: sans-serif !important;
+                        font-weight: normal;
+                    }
+
+
+                    html {
+                        width: 100% !important;
+                    }
+
+                    body {
+                        font-family: sans-serif !important;
+                        background: linear-gradient(#e0e0e0, gray, #f0f0f0);
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        position: relative !important;
+                    }
+
+                    h1 {
+                        color: black;
+                        font-weight: bold;
+                        text-align: center;
+                        font-size: 30px;
+                        margin-top: 20px;
+                        font-family: sans-serif !important;
+                    }
+
+                    .container-fluid {
+                        width: 100%;
+                        max-width: 1200px;
+                        margin: 0 auto;
+                    }
+
+                    .container-fluid {
+                        width: 100% !important;
+                    }
+
+
+                    .btn-danger {
+                        width: 300px !important;
+                        margin: 0 auto !important;
+                        border: 0 !important;
+                        border-radius: 10px !important;
+                        padding: 20px !important;
+                        opacity: 1 !important;
+                        background-color: black !important;
+                        color: white !important;
+                        font-size: 18px !important;
+                        font-weight: normal !important;
+                    }
+
+
+
+                    .btn-danger:hover {
+                        background-color: white !important;
+                        color: black !important;
+                        padding: 20px !important;
+                    }
+
+                    .btn-danger {
+                        transition: none;
+                    }
+
+                    a {
+                        font-family: sans-serif !important;
+                    }
+
+
+                    .btn-danger:active {
+                        background-color: white !important;
+                        color: black !important;
+                    }
+
+                    .btn-dark {
+                        font-size: 15px !important;
+                        color: white !important
+                    }
+
+                    button[class=btn-dark] {
+                        background-color: black !important;
+                        font-size: 16px !important;
+                        color: white !important;
+                    }
+
+                    .container {
+                        margin-top: -40px !important;
+                    }
+
+                    /* Responsiveness */
+                </style>
+                <script
+                    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+                <!-- Bootstrap JS -->
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
+</body>
+
+</html>

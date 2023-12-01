@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>LPP Concesionaria de Autos</title>
+  <link rel="shortcut icon" href="/icon.png" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <script src="/js/c2/selecRep.js"></script>
+
+  <!-- Activa el dark mode-->
+  <%- include('../../partials/head') %>
+</head>
+
+<body>
+
+  <%- include('../../partials/navigation') %>
+    <style>
+      @media (min-width: 1000px) {
+        .container {
+          width: 80%;
+        }
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+
+      h2 {
+        margin-top: 30px;
+      }
+    </style>
+    <!-- Contenido principal -->
+    <div class="container-fluid  h-75" style="height: calc(100vh); padding: 40px;">
+
+
+
+      <div class="row container mx-auto  pt-4 my-4 " style=" background-color: rgba(0, 0, 0, 0.603);">
+
+
+        <style>
+          .button-cell {
+            text-align: right;
+            padding-right: 10px;
+          }
+
+          .button-cell button {
+            margin-left: auto;
+          }
+        </style>
+
+        <div class="col-12 col-xl-6">
+          <h3 class="text-center text-light">Reparaciones Disponibles</h3>
+          <table id="tabla-original" class="caja w-95 border border-light" style="height: 400px;">
+            <tr style="background-color:white; color:black">
+              <th>codRDISP</th>
+              <th>nombre</th>
+              <th>Precio Unitario</th>
+              <th>Detalles</th>
+              <th>Accion</th>
+            </tr>
+
+            <% for (let i=0; i < reparaciones.length; i++) { %>
+              <tr id="fila-<%= i %>"
+                onclick="addRep('<%= reparaciones[i].codRDISP%>', '<%=reparaciones[i].nombre%>', '<%=reparaciones[i].PU%>', '<%=reparaciones[i].detalles%>')">
+                <td>
+                  <%= reparaciones[i].codRDISP %>
+                </td>
+                <td>
+                  <%= reparaciones[i].nombre %>
+                </td>
+                <td>
+                  <%= reparaciones[i].PU %>
+                </td>
+                <td>
+                  <%= reparaciones[i].detalles %>
+                </td>
+                <td class="button-cell">
+                  <button>Añadir</button>
+                </td>
+              </tr>
+              <% } %>
+          </table>
+        </div>
+
+        <div class="col-12 col-xl-6">
+          <h3 class="text-center text-light">Reparaciones Seleccionadas</h3>
+          <table id="tabla-seleccionadas" class="caja w-95 border border-light" style="height: 400px;">
+            <tr style="background-color:white; color:black">
+              <th>codRDISP</th>
+              <th>nombre</th>
+              <th>Precio Unitario</th>
+              <th>Detalles</th>
+              <th>Accion</th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="col">
+          <div class="row py-3  mx-auto d-flex justify-content-center  align-items-center">
+            <div
+              class=" text-light col-9   d-flex align-items-center justify-content-center pt-3  p-0 text-center  col-xl-3 border-bottom border-light  mx-3"
+              style="height: 40px;">
+              <p>Monto Actual: <span id="suma-precio-unitario">0</span></p>
+            </div>
+            <form id="formulario-reparaciones" action="/c2/b2/avanzarAImpresionDocRep" method="POST" required>
+              <input type="hidden" id="datos-reparaciones" name="datos-reparaciones">
+              <input type="hidden" id="codAuto" name="codA">
+              <button type="submit" class="submit btn btn-danger col-9 mt-2 col-xl-2 mx-3">Avanzar</button>
+            </form>
+            <script>
+              var codA = '<%= codA %>';
+              document.getElementById('codAuto').value = codA;
+            </script>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .container {
+        width: 80%;
+        border-radius: 5px !important;
+      }
+
+      .col-xl-6 {
+        width: 100% !important;
+        margin-top: 20px !important;
+      }
+
+      .col-xl-6 .button-cell button {
+        margin-left: auto;
+        border-radius: 2px;
+        border: 0;
+        background-color: white;
+      }
+
+      table,
+      th,
+      td {
+        padding: 10px !important;
+        width: 600px !important;
+        text-align: center !important;
+      }
+
+      td {
+        color: white !important;
+      }
+
+      .py-3 {
+        text-align: center !important;
+      }
+
+      #footer {
+        background-color: rgba(33, 37, 41, 1) !important;
+        padding: 50px !important;
+        text-align: center;
+        font-family: sans-serif !important;
+        clear: both !important;
+        /* Limpia ambos lados, asegurando que el footer esté debajo de otros elementos */
+        text-align: center !important;
+        /* Centra el contenido del footer */
+        /* Agrega espacio alrededor del contenido del footer */
+        background-color: rgba(33, 37, 41, 1);
+        color: white;
+        position: relative !important;
+      }
+
+
+      table[id="tabla-original"] {
+        border: solid black 5px !important;
+        border-radius: 10px !important;
+        width: 450px !important;
+      }
+
+      .survey-form {
+        display: block !important;
+        margin: 50px auto 70px !important;
+        font-family: sans-serif !important;
+        color: white !important;
+        opacity: 1 !important;
+        border-radius: 5px;
+        border: 0;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        margin-top: -5px !important;
+        display: block;
+        width: 200px !important;
+        margin: 0 auto 30px !important;
+        border: 0;
+        height: 25px;
+        border-radius: 5px !important;
+        text-align: center !important;
+      }
+
+      select[id="tipo-documento"] {
+        width: 200px !important;
+        margin-top: -5px !important;
+        display: block;
+        margin: 0 auto 30px !important;
+        border: 0;
+        height: 25px;
+        border-radius: 5px !important;
+        text-align: center !important;
+      }
+
+
+      .navbar {
+        z-index: 100;
+      }
+
+
+      h2 {
+        width: 60%;
+        font-size: 24px !important;
+        font-family: sans-serif !important;
+        margin: 30px auto 20px !important;
+        font-weight: bold !important;
+        color: black !important;
+      }
+
+      .add-button {
+        border: 0;
+        border-radius: 5px;
+        margin: 5px;
+      }
+
+      .data-display {
+        background: linear-gradient(rgb(0, 0, 0), rgb(243, 33, 33)) !important;
+        padding: 30px;
+        border-radius: 10px !important;
+      }
+
+      .add-button:hover {
+        background-color: black;
+        color: white;
+      }
+
+      .side-section {
+        margin-top: 50px !important;
+      }
+
+      td {
+        color: black;
+      }
+
+      tr {
+        margin: 10px !important;
+        border: solid 2px black;
+      }
+
+      table {
+        margin-top: 20px !important;
+        margin: 0 auto !important;
+      }
+
+      .text-light {
+        font-weight: bold !important;
+        margin-bottom: 50px !important;
+        color: white !important;
+      }
+
+      .border {
+        border: 0 !important;
+      }
+
+      #principal-description {
+        color: white !important;
+        text-align: center !important;
+        margin: 20px;
+        font-family: sans-serif !important;
+      }
+
+      label,
+      #description {
+        color: white !important;
+        font-family: sans-serif !important;
+      }
+
+
+      html {
+        width: 100% !important;
+      }
+
+      body {
+        font-family: sans-serif !important;
+        background: linear-gradient(#e0e0e0, gray, #f0f0f0);
+        margin: 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+      }
+
+      h1 {
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        font-size: 30px;
+        margin-top: 20px;
+        font-family: sans-serif !important;
+      }
+
+      .container-fluid {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .container-fluid {
+        width: 100% !important;
+      }
+
+
+      .btn-danger,
+      #submit {
+        text-align: center !important;
+        width: 400px !important;
+        margin: 30px auto;
+        border: 0;
+        border-radius: 10px;
+        padding: 20px;
+        opacity: 1 !important;
+        background-color: white !important;
+        color: black;
+        font-size: 18px;
+        text-decoration: none !important;
+      }
+
+      .payment-methods {
+        margin-bottom: 20px;
+      }
+
+      .btn-danger:hover,
+      #submit:hover {
+        transition: none;
+        transform: none;
+        padding: 20px !important;
+        background-color: black !important;
+        color: white !important;
+      }
+
+      .btn-danger:active {
+        background-color: white !important;
+        color: black !important;
+      }
+
+      .btn-dark {
+        font-size: 15px !important;
+        color: white !important
+      }
+
+      button[class=btn-dark] {
+        background-color: black !important;
+        font-size: 16px !important;
+      }
+
+      /* Responsiveness */
+
+      .bg-pan-left {
+        -webkit-animation: bg-pan-left 8s both;
+        animation: bg-pan-left 8s both
+      }
+
+      /* ----------------------------------------------
+* Generated by Animista on 2023-9-8 19:42:4
+* Licensed under FreeBSD License.
+* See http://animista.net/license for more info. 
+* w: http://animista.net, t: @cssanimista
+* ---------------------------------------------- */
+
+      @-webkit-keyframes bg-pan-left {
+        0% {
+          background-position: 100% 50%
+        }
+
+        100% {
+          background-position: 0 50%
+        }
+      }
+
+      @keyframes bg-pan-left {
+        0% {
+          background-position: 100% 50%
+        }
+
+        100% {
+          background-position: 0 50%
+        }
+      }
+
+      @media (max-width: 576px) {
+        .survey-form {
+          width: 100%;
+        }
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

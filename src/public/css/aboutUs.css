@@ -1,0 +1,16 @@
+#titleHistory{
+    color:white;
+
+}
+
+#pHistory{
+    letter-spacing:2px;
+    font-size:15px;
+}
+
+#pHistory {
+    letter-spacing: 2px;
+    font-size: 15px;
+    width: 100%; /* Ajusta el ancho al 100% */
+    max-width: none; /* Permite que el ancho sea ilimitado */
+}
